@@ -87,6 +87,8 @@ if (-not(Get-IsElevated)) {
     throw "Please run this script as an administrator" 
 }
 
+# anduin 
+<#
 if (-not $(Get-Command Connect-AzureAD -ErrorAction SilentlyContinue)) {
     Write-Host "Installing Nuget PowerShell Package Provider..." -ForegroundColor Green
     Install-PackageProvider -Name NuGet -Force
@@ -95,9 +97,13 @@ if (-not $(Get-Command Connect-AzureAD -ErrorAction SilentlyContinue)) {
 } else {
     Write-Host "Azure AD PowerShell Module is already installed!" -ForegroundColor Green
 }
-$aad = Connect-AzureAD
-$email = $aad.Account.Id
-$name = (Get-AzureADUser -ObjectId $email).DisplayName
+#>
+#$aad = Connect-AzureAD
+#$email = $aad.Account.Id
+Write-Host "Please provide me your email." -ForegroundColor Yellow
+$email = Read-Host
+Write-Host "Please provide me your name." -ForegroundColor Yellow
+$name = Read-Host
 $driveLetter = (Get-Location).Drive.Name
 $computerName = Read-Host "Enter New Computer Name if you want to rename it: ($($env:COMPUTERNAME))"
 if (-not ([string]::IsNullOrEmpty($computerName)))
