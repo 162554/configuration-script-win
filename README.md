@@ -36,13 +36,13 @@ Right click the start button, click `Windows PowerShell(Admin)`.
 [Edit now](https://github.com/Anduin2017/configuration-script-win/edit/main/install.ps1)
 
 ```powershell
-iex ((New-Object System.Net.WebClient).DownloadString('https://github.com/Anduin2017/configuration-script-win/raw/main/install.ps1'))
+iex ((New-Object System.Net.WebClient).DownloadString('https://gitee.com/guo_xiaohao/configuration-script-win/blob/main/install.ps1'))
 ```
 
 In China? There is a proxy for China network which bypass the firewall.
 
 ```powershell
-iex ((New-Object System.Net.WebClient).DownloadString('https://githubcontent.aiurs.co/Anduin2017/configuration-script-win/main/install.ps1'))
+iex ((New-Object System.Net.WebClient).DownloadString('https://gitee.com/guo_xiaohao/configuration-script-win/blob/main/install.ps1'))
 ```
 
 **Caution: DO NOT RUN this in Windows Terminal!!! Instead, start a pure PowerShell with admin instead!**
