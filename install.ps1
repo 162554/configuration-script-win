@@ -198,7 +198,7 @@ if ($pressedKey -eq 'y') {
 
     #Install-OtherSoftWare "https://res.u-tools.cn/version2/uTools-2.4.3.exe"
     Install-OtherSoftWare "https://www.mgnb.jp/download/MGNB.exe"
-    Install-OtherSoftWare "https://github.com/AutoDarkMode/Windows-Auto-Night-Mode/releases/download/10.1.0.10/AutoDarkModeX_10.1.0.10.exe"
+    Install-OtherSoftWare "https://1123213.download.aiur.site/autodarkmodex_10.1.0.10.exe"
     #Install-OtherSoftWare "https://download.ydstatic.com/notewebsite/downloads/YNote.exe"
     #Install-OtherSoftWare "https://download.zerotier.com/dist/ZeroTierOne.msi"
     <#
@@ -367,7 +367,7 @@ if ($pressedKey -eq 'y') {
     Write-Host "Monitor timeout set to 20."
 
     Write-Host "Enabling Chinese input method..." -ForegroundColor Green
-    $UserLanguageList = New-WinUserLanguageList -Language zh-CN
+    $UserLanguageList = New-WinUserLanguageList -Language en-US
     $UserLanguageList.Add("zh-CN")
     Set-WinUserLanguageList $UserLanguageList -Force
     $UserLanguageList | Format-Table -AutoSize
