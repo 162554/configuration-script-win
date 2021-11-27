@@ -9,7 +9,7 @@ function Update-All {
 
 function Force-UpdateAll {
     # This will run this update script inside current terminal.
-    Invoke-Expression ((New-Object System.Net.WebClient).DownloadString("https://github.com/Anduin2017/configuration-script-win/raw/main/install.ps1"))
+    Invoke-Expression ((New-Object System.Net.WebClient).DownloadString("https://github.com/162554/configuration-script-win/blob/main/install.ps1"))
 }
 
 function Reimage {
