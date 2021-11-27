@@ -68,7 +68,7 @@ function Install-OtherSoftWare {
     $wc = New-Object System.Net.WebClient
     $wc.DownloadFile($softwareurl, $outpath)
     Write-Host "Attempting to install: $sofearename..." -ForegroundColor Green
-    Start-Process -Filepath  $outpath  "/S"
+    Start-Process -Filepath  $outpath  "/S"  -Wait 2>&1 | out-null
     <# 无法判断是否已安装
     $InstalledSoftware = Get-ChildItem "HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall"
     foreach($obj in $InstalledSoftware){
@@ -356,7 +356,7 @@ Get-ChildItem $OneDrivePath | Format-Table -AutoSize
         Write-Host "Creating PROFILE..." -ForegroundColor Yellow
         New-Item -Path $PROFILE -ItemType "file" -Force
     }
-    $profileContent = (New-Object System.Net.WebClient).DownloadString('https://github.com/Anduin2017/configuration-script-win/raw/main/PROFILE.ps1')
+    $profileContent = (New-Object System.Net.WebClient).DownloadString('https://github.com/162554/configuration-script-win/raw/main/PROFILE.ps1')
     Set-Content $PROFILE $profileContent
     . $PROFILE
 
