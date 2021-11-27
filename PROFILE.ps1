@@ -9,11 +9,11 @@ function Update-All {
 
 function Force-UpdateAll {
     # This will run this update script inside current terminal.
-    Invoke-Expression ((New-Object System.Net.WebClient).DownloadString("https://github.com/162554/configuration-script-win/blob/main/install.ps1"))
+    Invoke-Expression ((New-Object System.Net.WebClient).DownloadString("https://gitee.com/guo_xiaohao/configuration-script-win/blob/main/install.ps1"))
 }
 
 function Reimage {
-    Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://github.com/Anduin2017/configuration-script-win/raw/main/Reimage.ps1'))
+    Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://gitee.com/guo_xiaohao/configuration-script-win/blob/main/Reimage.ps1'))
 }
 
 function Watch-RandomVideo {

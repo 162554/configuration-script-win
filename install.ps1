@@ -63,12 +63,12 @@ function Install-OtherSoftWare {
         [string]$softwareurl
     )
     $softwarename = $softwareurl.split("/")[-1]
-    Write-Host "softwarename is  $($softwarename )" -ForegroundColor Green
+    Write-Host "Download .exe for   $($softwarename )" -ForegroundColor Green
     $outpath = "$env:USERPROFILE\Downloads\$softwarename"
     $wc = New-Object System.Net.WebClient
     $wc.DownloadFile($softwareurl, $outpath)
     Start-Sleep -Seconds 10
-    Write-Host "Install-OtherSoftWare softwarename: $softwarename..." -ForegroundColor Green
+    Write-Host "Install-OtherSoftWare : $softwarename..." -ForegroundColor Green
     Start-Process -Filepath  $outpath  "/S"  -Wait 2>&1 | out-null
 }
 
@@ -159,7 +159,7 @@ if ($pressedKey -eq 'y') {
     #Install-IfNotInstalled "Microsoft.PowerShell"
     #Install-IfNotInstalled "Microsoft.dotnet"
     ## Java
-    Install-IfNotInstalled "JetBrains.IntelliJIDEA.Ultimate"   #bug 无法判断是否已安装
+    #Install-IfNotInstalled "JetBrains.IntelliJIDEA.Ultimate"   #bug 无法判断是否已安装
     Install-IfNotInstalled "EclipseAdoptium.Temurin.11"
     ## Netease
     Install-IfNotInstalled "Netease.CloudMusic"
@@ -237,7 +237,7 @@ if ($pressedKey -eq 'y') {
         Write-Host "Creating PROFILE..." -ForegroundColor Yellow
         New-Item -Path $PROFILE -ItemType "file" -Force
     }
-    $profileContent = (New-Object System.Net.WebClient).DownloadString('https://github.com/162554/configuration-script-win/raw/main/PROFILE.ps1')
+    $profileContent = (New-Object System.Net.WebClient).DownloadString('https://gitee.com/guo_xiaohao/configuration-script-win/raw/main/PROFILE.ps1')
     Set-Content $PROFILE $profileContent
     . $PROFILE
 
@@ -265,12 +265,12 @@ if ($pressedKey -eq 'y') {
     $_ = Get-Content $onedriveConfigwt # Ensure file is available.
     cmd /c "del `"$wtConfigPath`""
     cmd /c "mklink `"$wtConfigPath`" `"$onedriveConfigwt`""
-    
+    <#  
     Write-Host "Configuring windows terminal context menu..." -ForegroundColor Green
     git clone https://github.com/lextm/windowsterminal-shell.git "$HOME\temp"
     pwsh -command "$HOME\temp\install.ps1 mini"
     Remove-Item $HOME\temp -Force -Recurse -Confirm:$false
-    
+    #>
     <#
     Write-Host "-----------------------------" -ForegroundColor Green
     Write-Host "        PART 4  - SDK    " -ForegroundColor Green
@@ -334,7 +334,7 @@ if ($pressedKey -eq 'y') {
 
     Write-Host "Uninsatll some Software..." -ForegroundColor Green
     winget uninstall MicrosoftWindows.Client.WebExperience_cw5n1h2txyewy
-    winget uninstall MicrosoftWindows.Teams
+    winget uninstall MicrosoftTeams_8wekyb3d8bbwe
 
     Write-Host "Remove rubbish 3D objects..." -ForegroundColor Green
     Remove-Item 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{0DB7E03F-FC29-4DC6-9020-FF41B59E513A}' -ErrorAction SilentlyContinue
