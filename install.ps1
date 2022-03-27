@@ -189,7 +189,7 @@ if ($pressedKey -eq 'y') {
 
     #Install-OtherSoftWare "https://res.u-tools.cn/version2/uTools-2.4.3.exe"
     #Install-OtherSoftWare "https://www.mgnb.jp/download/MGNB.exe"
-    Install-OtherSoftWare "https://gxhao.download.aiur.site/autodarkmodex_10.1.0.10.exe"
+    #Install-OtherSoftWare "https://gxhao.download.aiur.site/autodarkmodex_10.1.0.10.exe"
     #Install-OtherSoftWare "https://download.ydstatic.com/notewebsite/downloads/YNote.exe"
     #Install-OtherSoftWare "https://download.zerotier.com/dist/ZeroTierOne.msi"
     <#
