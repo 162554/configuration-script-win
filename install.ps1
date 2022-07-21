@@ -432,63 +432,6 @@ Get-ChildItem $OneDrivePath | Format-Table -AutoSize
     Write-Host "Setting execution policy to remotesigned..." -ForegroundColor Green
     Set-ExecutionPolicy remotesigned
 
-<<<<<<< HEAD
-    Write-Host "Installing profile file..." -ForegroundColor Green
-    if (!(Test-Path $PROFILE)) {
-        Write-Host "Creating PROFILE..." -ForegroundColor Yellow
-        New-Item -Path $PROFILE -ItemType "file" -Force
-    }
-    $profileContent = (New-Object System.Net.WebClient).DownloadString('https://gitee.com/guo_xiaohao/configuration-script-win/raw/main/PROFILE.ps1')
-    Set-Content $PROFILE $profileContent
-    . $PROFILE
-
-    $OneDrivePath = "$env:USERPROFILE\OneDrive"
-    Write-Host "OneDrive path is $OneDrivePath" -ForegroundColor Green
-    Write-Host "Linking back SSH keys..." -ForegroundColor Green
-    $oneDriveSshConfigPath = "$OneDrivePath\Storage\SSH\"
-    $localSshConfigPath = "$HOME\.ssh\"
-    $_ = Get-Content $oneDriveSshConfigPath\id_rsa.pub # Ensure file is available.
-    cmd /c "rmdir $localSshConfigPath /q"
-    cmd /c "mklink /d `"$localSshConfigPath`" `"$oneDriveSshConfigPath`""
-    Write-Host "Testing SSH features..." -ForegroundColor Green
-    Write-Host "yes" | ssh -o "StrictHostKeyChecking no" git@github.com
-
-    Write-Host "Configuring git..." -ForegroundColor Green
-    Write-Host "Setting git email to $email" -ForegroundColor Yellow
-    Write-Host "Setting git name to $name" -ForegroundColor Yellow
-    git config --global user.email $email
-    git config --global user.name $name
-    git config --global core.autocrlf true
-    
-    Write-Host "Linking back windows terminal configuration file..." -ForegroundColor Green
-    $wtConfigPath = "$HOME\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
-    $onedriveConfigwt = "$OneDrivePath\Storage\WT\settings.json"
-    $_ = Get-Content $onedriveConfigwt # Ensure file is available.
-    cmd /c "del `"$wtConfigPath`""
-    cmd /c "mklink `"$wtConfigPath`" `"$onedriveConfigwt`""
-    <#  
-    Write-Host "Configuring windows terminal context menu..." -ForegroundColor Green
-    git clone https://github.com/lextm/windowsterminal-shell.git "$HOME\temp"
-    pwsh -command "$HOME\temp\install.ps1 mini"
-    Remove-Item $HOME\temp -Force -Recurse -Confirm:$false
-    #>
-    <#
-    Write-Host "-----------------------------" -ForegroundColor Green
-    Write-Host "        PART 4  - SDK    " -ForegroundColor Green
-    Write-Host "-----------------------------" -ForegroundColor Green
-
-    Write-Host "Setting up some node js global tools..." -ForegroundColor Green
-    npm install --global npm@latest
-    npm install --global node-static typescript @angular/cli yarn
-
-    Write-Host "Setting up .NET environment variables..." -ForegroundColor Green
-    [Environment]::SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Development", "Machine")
-    [Environment]::SetEnvironmentVariable("DOTNET_PRINT_TELEMETRY_MESSAGE", "false", "Machine")
-    [Environment]::SetEnvironmentVariable("DOTNET_CLI_TELEMETRY_OPTOUT", "1", "Machine")
-
-    if (-not (Test-Path -Path "$env:APPDATA\Nuget\Nuget.config") -or $null -eq (Select-String -Path "$env:APPDATA\Nuget\Nuget.config" -Pattern "nuget.org")) {
-        $config = "<?xml version=`"1.0`" encoding=`"utf-8`"?>`
-=======
 New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" -Name "LongPathsEnabled" -Value 1 -PropertyType DWORD -Force
 
 Write-Host "Installing profile file..." -ForegroundColor Green
@@ -565,7 +508,6 @@ Write-Host "Setting up .NET environment variables..." -ForegroundColor Green
 
 if (-not (Test-Path -Path "$env:APPDATA\Nuget\Nuget.config") -or $null -eq (Select-String -Path "$env:APPDATA\Nuget\Nuget.config" -Pattern "nuget.org")) {
     $config = "<?xml version=`"1.0`" encoding=`"utf-8`"?>`
->>>>>>> anduin/main
     <configuration>`
       <packageSources>`
         <add key=`"nuget.org`" value=`"https://api.nuget.org/v3/index.json`" protocolVersion=`"3`" />`
@@ -575,72 +517,6 @@ if (-not (Test-Path -Path "$env:APPDATA\Nuget\Nuget.config") -or $null -eq (Sele
         <add key=`"repositoryPath`" value=`"D:\CxCache`" />`
       </config>`
     </configuration>"
-<<<<<<< HEAD
-        Set-Content -Path "$env:APPDATA\Nuget\Nuget.config" -Value $config
-    }
-    else {
-        Write-Host "Nuget config file already exists." -ForegroundColor Yellow
-    }
-    New-Item -Path "C:\Program Files (x86)\Microsoft SDKs\NuGetPackages\" -ItemType directory -Force
-
-    Write-Host "Installing Github.com/microsoft/artifacts-credprovider..." -ForegroundColor Green
-    Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/microsoft/artifacts-credprovider/master/helpers/installcredprovider.ps1'))
-    dotnet tool install --global dotnet-ef --interactive
-    dotnet tool update --global dotnet-ef --interactive
-
-    Write-Host "Building some .NET projects to ensure you can develop..." -ForegroundColor Green
-    git clone https://github.com/AiursoftWeb/Infrastructures.git "$HOME\source\repos\AiursoftWeb\Infrastructures"
-    git clone https://github.com/AiursoftWeb/AiurVersionControl.git "$HOME\source\repos\AiursoftWeb\AiurVersionControl"
-    git clone https://github.com/Anduin2017/Happiness-recorder.git "$HOME\source\repos\Anduin2017\Happiness-recorder"
-    dotnet publish "$HOME\source\repos\Anduin2017\Happiness-recorder\JAI.csproj" -c Release -r win-x64 -o "$OneDrivePath\Storage\Tools\JAL"
-    #>
-    Write-Host "-----------------------------" -ForegroundColor Green
-    Write-Host "        PART 5  - Desktop    " -ForegroundColor Green
-    Write-Host "-----------------------------" -ForegroundColor Green
-
-    Write-Host "Clearing recycle bin..." -ForegroundColor Green
-    Write-Host "Recycle bin cleared on $driveLetter..."
-    Clear-RecycleBin -DriveLetter $driveLetter -Force -Confirm
-
-    Write-Host "Disabling rubbish Active Probing..." -ForegroundColor Green
-    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet\" -Name EnableActiveProbing -Value 0 -Force
-    Write-Host "Disabled Active Probing."
-
-    Write-Host "Clearing start up..." -ForegroundColor Green
-    $startUp = $env:USERPROFILE + "\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\StartUp\*"
-    Get-ChildItem $startUp
-    Remove-Item -Path $startUp
-    Get-ChildItem $startUp
-
-    Write-Host "Uninsatll some Software..." -ForegroundColor Green
-    winget uninstall MicrosoftWindows.Client.WebExperience_cw5n1h2txyewy
-    winget uninstall MicrosoftTeams_8wekyb3d8bbwe
-
-    Write-Host "Remove rubbish 3D objects..." -ForegroundColor Green
-    Remove-Item 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{0DB7E03F-FC29-4DC6-9020-FF41B59E513A}' -ErrorAction SilentlyContinue
-    Write-Host "3D objects deleted."
-
-    Write-Host "Setting Power Policy to ultimate..." -ForegroundColor Green
-    powercfg /s e9a42b02-d5df-448d-aa00-03f14749eb61
-    powercfg /list
-    <#
-    Write-Host "Enabling desktop icons..." -ForegroundColor Green
-    cmd.exe /c "reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\ClassicStartMenu /v {20D04FE0-3AEA-1069-A2D8-08002B30309D} /t REG_DWORD /d 0 /f"
-    cmd.exe /c "reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel /v {20D04FE0-3AEA-1069-A2D8-08002B30309D} /t REG_DWORD /d 0 /f"
-    cmd.exe /c "reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\ClassicStartMenu /v {59031a47-3f72-44a7-89c5-5595fe6b30ee} /t REG_DWORD /d 0 /f"
-    cmd.exe /c "reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel /v {59031a47-3f72-44a7-89c5-5595fe6b30ee} /t REG_DWORD /d 0 /f"
-    cmd.exe /c "reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\ClassicStartMenu /v {645FF040-5081-101B-9F08-00AA002F954E} /t REG_DWORD /d 0 /f"
-    cmd.exe /c "reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel /v {645FF040-5081-101B-9F08-00AA002F954E} /t REG_DWORD /d 0 /f"
-    cmd.exe /c "reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\ClassicStartMenu /v {F02C1A0D-BE21-4350-88B0-7367FC96EF3C} /t REG_DWORD /d 0 /f"
-    cmd.exe /c "reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel /v {F02C1A0D-BE21-4350-88B0-7367FC96EF3C} /t REG_DWORD /d 0 /f"
-    #>
-    $wallpaper = "$OneDrivePath\Pictures\Wallpaper\girl.jpg"
-    if (Test-Path $wallpaper) {
-        Write-Host "Setting wallpaper to $wallpaper..." -ForegroundColor Green
-        Set-WallPaper -Image $wallpaper
-        Write-Host "Set to: " (Get-Item "$OneDrivePath\Pictures\Wallpaper\girl.jpg").Name
-    }
-=======
     Set-Content -Path "$env:APPDATA\Nuget\Nuget.config" -Value $config
 } else {
     Write-Host "Nuget config file already exists." -ForegroundColor Yellow
@@ -661,7 +537,6 @@ git clone https://github.com/Anduin2017/Parser.git "$HOME\source\repos\Anduin201
 $parserPath = "$OneDrivePath\Storage\Parser"
 dotnet publish "$HOME\source\repos\Anduin2017\Parser\Parser.csproj" -c Release -r win-x64 -o $parserPath --self-contained
 AddToPath -folder $parserPath
->>>>>>> anduin/main
 
     Write-Host "Disable Sleep on AC Power..." -ForegroundColor Green
     Powercfg /Change monitor-timeout-ac 20
@@ -734,16 +609,6 @@ AddToPath -folder $parserPath
         Set-NetConnectionProfile -Name $networkProfile.Name -NetworkCategory Private
     }
 
-<<<<<<< HEAD
-    Write-Host "Setting UAC..." -ForegroundColor Green
-    Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\" -Name "ConsentPromptBehaviorAdmin" -Value 5
-    Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\" -Name "PromptOnSecureDesktop" -Value 1
-
-    Write-Host "Enable Remote Desktop..." -ForegroundColor Green
-    Set-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\" -Name "fDenyTSConnections" -Value 0
-    Set-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp\" -Name "UserAuthentication" -Value 0
-    Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
-=======
 Write-Host "Clearing recycle bin..." -ForegroundColor Green
 Write-Host "Recycle bin cleared on $driveLetter..."
 Clear-RecycleBin -DriveLetter $driveLetter -Force -Confirm
@@ -864,7 +729,6 @@ Remove-Item "C:\Users\Public\Desktop\*" -Force -Recurse -Confirm:$false -ErrorAc
 Write-Host "Resetting desktop..." -ForegroundColor Yellow
 Stop-Process -Name explorer -Force
 Write-Host "Desktop cleaned."
->>>>>>> anduin/main
 
     # Upgrade all.
     Write-Host "Checking for final app upgrades..." -ForegroundColor Green
@@ -899,9 +763,6 @@ Write-Host "Desktop cleaned."
 
     Do-Next
 
-<<<<<<< HEAD
-}
-=======
 $(Invoke-WebRequest https://raw.githubusercontent.com/Anduin2017/configuration-script-win/main/test_env.sh).Content | bash
 
 Write-Host "Press the [C] key to continue to steps which requires reboot."
@@ -935,4 +796,3 @@ if ($pressedKey -eq 'c') {
 
 Do-Next
 
->>>>>>> anduin/main
