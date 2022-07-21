@@ -200,17 +200,12 @@ Install-IfNotInstalled "Microsoft.WindowsTerminal"
 Install-IfNotInstalled "Microsoft.Teams"
 Install-IfNotInstalled "Microsoft.Office"
 Install-IfNotInstalled "Microsoft.OneDrive"
-Install-IfNotInstalled "Microsoft.PowerShell"
-Install-IfNotInstalled "Microsoft.DotNet.SDK.6"
 Install-IfNotInstalled "Microsoft.Edge"
 Install-IfNotInstalled "Microsoft.EdgeWebView2Runtime"
-Install-IfNotInstalled "Microsoft.AzureCLI"
-Install-IfNotInstalled "Microsoft.AzureDataStudio"
-Install-IfNotInstalled "Microsoft.OpenJDK.17"
+Install-IfNotInstalled "Microsoft.OpenJDK.8"
 Install-IfNotInstalled "Nextcloud.NextcloudDesktop"
 Install-IfNotInstalled "Tencent.WeChat"
 Install-IfNotInstalled "Python.Python.3"
-Install-IfNotInstalled "RubyInstallerTeam.Ruby"
 Install-IfNotInstalled "GoLang.Go"
 Install-IfNotInstalled "SoftDeluxe.FreeDownloadManager"
 Install-IfNotInstalled "VideoLAN.VLC"
@@ -228,9 +223,6 @@ Install-IfNotInstalled "DBBrowserForSQLite.DBBrowserForSQLite"
 Install-IfNotInstalled "CrystalDewWorld.CrystalDiskInfo"
 
 Install-StoreApp -storeAppId "9N0DX20HK701" -wingetAppName "Windows Terminal"
-Install-StoreApp -storeAppId "9NBLGGH5R558" -wingetAppName "Microsoft To Do"
-Install-StoreApp -storeAppId "9MV0B5HZVK9Z" -wingetAppName "Xbox"
-Install-StoreApp -storeAppId "9wzdncrfjbh4" -wingetAppName "Microsoft Photos"
 Install-StoreApp -storeAppId "9nblggh4qghw" -wingetAppName "Microsoft Sticky Notes"
 Install-StoreApp -storeAppId "9wzdncrfhvqm" -wingetAppName "Mail and Calendar"
 Install-StoreApp -storeAppId "9mspc6mp8fm4" -wingetAppName "Microsoft Whiteboard"
@@ -391,12 +383,6 @@ if (-not $(Get-Command git-lfs)) {
     winget install "GitHub.GitLFS" --source winget
 } else {
     Write-Host "Git LFS is already installed." -ForegroundColor Yellow
-}
-
-if ($email.Contains('microsoft')) {
-    Install-IfNotInstalled Microsoft.VisualStudio.2022.Enterprise
-} else {
-    Install-IfNotInstalled Microsoft.VisualStudio.2022.Community
 }
 
 Write-Host "-----------------------------" -ForegroundColor Green
