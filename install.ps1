@@ -176,214 +176,214 @@ $screenX = $screen.CurrentHorizontalResolution
 $screenY = $screen.CurrentVerticalResolution
 Write-Host "Got screen: $screenX x $screenY" -ForegroundColor Green
 
-Write-Host "-----------------------------" -ForegroundColor Green
-Write-Host "        PART 2  - Install    " -ForegroundColor Green
-Write-Host "-----------------------------" -ForegroundColor Green
+# Write-Host "-----------------------------" -ForegroundColor Green
+# Write-Host "        PART 2  - Install    " -ForegroundColor Green
+# Write-Host "-----------------------------" -ForegroundColor Green
 
-Do-Next
+# Do-Next
 
-Write-Host "Triggering Store to upgrade all apps..." -ForegroundColor Green
-$namespaceName = "root\cimv2\mdm\dmmap"
-$className = "MDM_EnterpriseModernAppManagement_AppManagement01"
-$wmiObj = Get-WmiObject -Namespace $namespaceName -Class $className
-$wmiObj.UpdateScanMethod() | Format-Table -AutoSize
+# Write-Host "Triggering Store to upgrade all apps..." -ForegroundColor Green
+# $namespaceName = "root\cimv2\mdm\dmmap"
+# $className = "MDM_EnterpriseModernAppManagement_AppManagement01"
+# $wmiObj = Get-WmiObject -Namespace $namespaceName -Class $className
+# $wmiObj.UpdateScanMethod() | Format-Table -AutoSize
 
-if ("$(winget list --id Microsoft.VisualStudioCode --source winget)".Contains("--")) { 
-    Write-Host "Microsoft.VisualStudioCode is already installed!" -ForegroundColor Green
-}
-else {
-    Write-Host "Attempting to download Microsoft VS Code..." -ForegroundColor Green
-    winget install --exact --id Microsoft.VisualStudioCode --scope Machine --interactive --source winget
-}
+# if ("$(winget list --id Microsoft.VisualStudioCode --source winget)".Contains("--")) { 
+#     Write-Host "Microsoft.VisualStudioCode is already installed!" -ForegroundColor Green
+# }
+# else {
+#     Write-Host "Attempting to download Microsoft VS Code..." -ForegroundColor Green
+#     winget install --exact --id Microsoft.VisualStudioCode --scope Machine --interactive --source winget
+# }
 
-Install-IfNotInstalled "Microsoft.WindowsTerminal"
-Install-IfNotInstalled "Microsoft.Teams"
-Install-IfNotInstalled "Microsoft.Office"
-Install-IfNotInstalled "Microsoft.OneDrive"
-Install-IfNotInstalled "Microsoft.Edge"
-Install-IfNotInstalled "Microsoft.EdgeWebView2Runtime"
-Install-IfNotInstalled "Microsoft.OpenJDK.8"
-Install-IfNotInstalled "Nextcloud.NextcloudDesktop"
-Install-IfNotInstalled "Tencent.WeChat"
-Install-IfNotInstalled "Python.Python.3"
-Install-IfNotInstalled "GoLang.Go"
-Install-IfNotInstalled "SoftDeluxe.FreeDownloadManager"
-Install-IfNotInstalled "VideoLAN.VLC"
-Install-IfNotInstalled "Telegram.TelegramDesktop"
-Install-IfNotInstalled "OBSProject.OBSStudio"
-Install-IfNotInstalled "Git.Git"
-Install-IfNotInstalled "gerardog.gsudo"
-Install-IfNotInstalled "OpenJS.NodeJS"
-Install-IfNotInstalled "Postman.Postman"
-Install-IfNotInstalled "7zip.7zip"
-Install-IfNotInstalled "CPUID.CPU-Z"
-Install-IfNotInstalled "WinDirStat.WinDirStat"
-Install-IfNotInstalled "FastCopy.FastCopy"
-Install-IfNotInstalled "DBBrowserForSQLite.DBBrowserForSQLite"
-Install-IfNotInstalled "CrystalDewWorld.CrystalDiskInfo"
+# Install-IfNotInstalled "Microsoft.WindowsTerminal"
+# Install-IfNotInstalled "Microsoft.Teams"
+# Install-IfNotInstalled "Microsoft.Office"
+# Install-IfNotInstalled "Microsoft.OneDrive"
+# Install-IfNotInstalled "Microsoft.Edge"
+# Install-IfNotInstalled "Microsoft.EdgeWebView2Runtime"
+# Install-IfNotInstalled "Microsoft.OpenJDK.8"
+# Install-IfNotInstalled "Nextcloud.NextcloudDesktop"
+# Install-IfNotInstalled "Tencent.WeChat"
+# Install-IfNotInstalled "Python.Python.3"
+# Install-IfNotInstalled "GoLang.Go"
+# Install-IfNotInstalled "SoftDeluxe.FreeDownloadManager"
+# Install-IfNotInstalled "VideoLAN.VLC"
+# Install-IfNotInstalled "Telegram.TelegramDesktop"
+# Install-IfNotInstalled "OBSProject.OBSStudio"
+# Install-IfNotInstalled "Git.Git"
+# Install-IfNotInstalled "gerardog.gsudo"
+# Install-IfNotInstalled "OpenJS.NodeJS"
+# Install-IfNotInstalled "Postman.Postman"
+# Install-IfNotInstalled "7zip.7zip"
+# Install-IfNotInstalled "CPUID.CPU-Z"
+# Install-IfNotInstalled "WinDirStat.WinDirStat"
+# Install-IfNotInstalled "FastCopy.FastCopy"
+# Install-IfNotInstalled "DBBrowserForSQLite.DBBrowserForSQLite"
+# Install-IfNotInstalled "CrystalDewWorld.CrystalDiskInfo"
 
-Install-StoreApp -storeAppId "9N0DX20HK701" -wingetAppName "Windows Terminal"
-Install-StoreApp -storeAppId "9nblggh4qghw" -wingetAppName "Microsoft Sticky Notes"
-Install-StoreApp -storeAppId "9wzdncrfhvqm" -wingetAppName "Mail and Calendar"
-Install-StoreApp -storeAppId "9mspc6mp8fm4" -wingetAppName "Microsoft Whiteboard"
-Install-StoreApp -storeAppId "9wzdncrfhvjl" -wingetAppName "OneNote for Windows 10"
-Install-StoreApp -storeAppId "9N4D0MSMP0PT" -wingetAppName "VP9 Video Extensions"
-Install-StoreApp -storeAppId "9N4D0MSMP0PT" -wingetAppName "AV1 Video Extension"
+# Install-StoreApp -storeAppId "9N0DX20HK701" -wingetAppName "Windows Terminal"
+# Install-StoreApp -storeAppId "9nblggh4qghw" -wingetAppName "Microsoft Sticky Notes"
+# Install-StoreApp -storeAppId "9wzdncrfhvqm" -wingetAppName "Mail and Calendar"
+# Install-StoreApp -storeAppId "9mspc6mp8fm4" -wingetAppName "Microsoft Whiteboard"
+# Install-StoreApp -storeAppId "9wzdncrfhvjl" -wingetAppName "OneNote for Windows 10"
+# Install-StoreApp -storeAppId "9N4D0MSMP0PT" -wingetAppName "VP9 Video Extensions"
+# Install-StoreApp -storeAppId "9N4D0MSMP0PT" -wingetAppName "AV1 Video Extension"
 
-RemoveUWP Microsoft.MSPaint
-RemoveUWP Microsoft.Microsoft3DViewer
-RemoveUWP Microsoft.ZuneMusic
-RemoveUWP *549981C3F5F10*
-RemoveUWP Microsoft.WindowsSoundRecorder
-RemoveUWP Microsoft.PowerAutomateDesktop
-RemoveUWP Microsoft.BingWeather
-RemoveUWP Microsoft.BingNews
-RemoveUWP king.com.CandyCrushSaga
-RemoveUWP Microsoft.Messaging
-RemoveUWP Microsoft.WindowsFeedbackHub
-RemoveUWP Microsoft.MicrosoftOfficeHub
-RemoveUWP Microsoft.MicrosoftSolitaireCollection
-RemoveUWP 4DF9E0F8.Netflix
-RemoveUWP Microsoft.GetHelp
-RemoveUWP Microsoft.People
-RemoveUWP Microsoft.YourPhone
-RemoveUWP MicrosoftTeams
-RemoveUWP Microsoft.Getstarted
-RemoveUWP Microsoft.Microsoft3DViewer
-RemoveUWP Microsoft.WindowsMaps
-RemoveUWP Microsoft.MixedReality.Portal
-RemoveUWP Microsoft.SkypeApp
+# RemoveUWP Microsoft.MSPaint
+# RemoveUWP Microsoft.Microsoft3DViewer
+# RemoveUWP Microsoft.ZuneMusic
+# RemoveUWP *549981C3F5F10*
+# RemoveUWP Microsoft.WindowsSoundRecorder
+# RemoveUWP Microsoft.PowerAutomateDesktop
+# RemoveUWP Microsoft.BingWeather
+# RemoveUWP Microsoft.BingNews
+# RemoveUWP king.com.CandyCrushSaga
+# RemoveUWP Microsoft.Messaging
+# RemoveUWP Microsoft.WindowsFeedbackHub
+# RemoveUWP Microsoft.MicrosoftOfficeHub
+# RemoveUWP Microsoft.MicrosoftSolitaireCollection
+# RemoveUWP 4DF9E0F8.Netflix
+# RemoveUWP Microsoft.GetHelp
+# RemoveUWP Microsoft.People
+# RemoveUWP Microsoft.YourPhone
+# RemoveUWP MicrosoftTeams
+# RemoveUWP Microsoft.Getstarted
+# RemoveUWP Microsoft.Microsoft3DViewer
+# RemoveUWP Microsoft.WindowsMaps
+# RemoveUWP Microsoft.MixedReality.Portal
+# RemoveUWP Microsoft.SkypeApp
 
-Write-Host "Configuring FDM..." -ForegroundColor Green
-cmd /c "taskkill.exe /IM fdm.exe /F"
-Remove-Item -Path "$env:LOCALAPPDATA\Softdeluxe" -Force -Recurse -ErrorAction SilentlyContinue
-Start-Process "$env:ProgramFiles\Softdeluxe\Free Download Manager\fdm.exe"
-Start-Sleep -Seconds 5
-cmd /c "taskkill.exe /IM fdm.exe /F"
-$fdmDbPath = "$env:LOCALAPPDATA\Softdeluxe\Free Download Manager\db.sqlite"
-Invoke-WebRequest -Uri "https://github.com/Anduin2017/configuration-script-win/raw/main/db.sqlite" -OutFile "$fdmDbPath"
+# Write-Host "Configuring FDM..." -ForegroundColor Green
+# cmd /c "taskkill.exe /IM fdm.exe /F"
+# Remove-Item -Path "$env:LOCALAPPDATA\Softdeluxe" -Force -Recurse -ErrorAction SilentlyContinue
+# Start-Process "$env:ProgramFiles\Softdeluxe\Free Download Manager\fdm.exe"
+# Start-Sleep -Seconds 5
+# cmd /c "taskkill.exe /IM fdm.exe /F"
+# $fdmDbPath = "$env:LOCALAPPDATA\Softdeluxe\Free Download Manager\db.sqlite"
+# Invoke-WebRequest -Uri "https://github.com/Anduin2017/configuration-script-win/raw/main/db.sqlite" -OutFile "$fdmDbPath"
 
-#aria2
-if ($true)
-{
-    Write-Host "Installing aria2 as download tool..." -ForegroundColor Green
-    $downloadAddress = "https://github.com/aria2/aria2/releases/download/release-1.36.0/aria2-1.36.0-win-64bit-build1.zip"
-    Invoke-WebRequest $downloadAddress -OutFile "$HOME\aria2.zip"
-    $installPath = "${env:ProgramFiles}\aria2"
-    & "${env:ProgramFiles}\7-Zip\7z.exe" x "$HOME\aria2.zip" "-o$($installPath)" -y
-    $subPath = $(Get-ChildItem -Path $installPath | Where-Object { $_.Name -like "aria2-*" } | Sort-Object Name -Descending | Select-Object -First 1).Name
-    $subPath = Join-Path -Path $installPath -ChildPath $subPath
-    Remove-Item $installPath\aria2c.exe -ErrorAction SilentlyContinue
-    Move-Item $subPath\aria2c.exe $installPath
-    AddToPath -folder $installPath
-    Remove-Item -Path "$HOME\aria2.zip" -Force
-}
+# #aria2
+# if ($true)
+# {
+#     Write-Host "Installing aria2 as download tool..." -ForegroundColor Green
+#     $downloadAddress = "https://github.com/aria2/aria2/releases/download/release-1.36.0/aria2-1.36.0-win-64bit-build1.zip"
+#     Invoke-WebRequest $downloadAddress -OutFile "$HOME\aria2.zip"
+#     $installPath = "${env:ProgramFiles}\aria2"
+#     & "${env:ProgramFiles}\7-Zip\7z.exe" x "$HOME\aria2.zip" "-o$($installPath)" -y
+#     $subPath = $(Get-ChildItem -Path $installPath | Where-Object { $_.Name -like "aria2-*" } | Sort-Object Name -Descending | Select-Object -First 1).Name
+#     $subPath = Join-Path -Path $installPath -ChildPath $subPath
+#     Remove-Item $installPath\aria2c.exe -ErrorAction SilentlyContinue
+#     Move-Item $subPath\aria2c.exe $installPath
+#     AddToPath -folder $installPath
+#     Remove-Item -Path "$HOME\aria2.zip" -Force
+# }
 
-# Spotify
-if ("$(winget list -e --id "Spotify.Spotify" --source winget)".Contains("--")) { 
-    Write-Host "Spotify is already installed!" -ForegroundColor Green
-}
-else {
-    Write-Host "Attempting to install: $package..." -ForegroundColor Green
-    aria2c.exe "https://download.scdn.co/SpotifySetup.exe" -d $HOME -o "spotify.exe" --check-certificate=false
+# # Spotify
+# if ("$(winget list -e --id "Spotify.Spotify" --source winget)".Contains("--")) { 
+#     Write-Host "Spotify is already installed!" -ForegroundColor Green
+# }
+# else {
+#     Write-Host "Attempting to install: $package..." -ForegroundColor Green
+#     aria2c.exe "https://download.scdn.co/SpotifySetup.exe" -d $HOME -o "spotify.exe" --check-certificate=false
     
-    explorer "$HOME\spotify.exe"
-}
+#     explorer "$HOME\spotify.exe"
+# }
 
-# Chromium
-if ($true) { 
-    Write-Host "Installing Chromium as backup browser ..." -ForegroundColor Green
-    $chromiumUrl = "https://download-chromium.appspot.com/dl/Win_x64?type=snapshots"
-    $chromiumPath = "${env:ProgramFiles}\Chromium"
+# # Chromium
+# if ($true) { 
+#     Write-Host "Installing Chromium as backup browser ..." -ForegroundColor Green
+#     $chromiumUrl = "https://download-chromium.appspot.com/dl/Win_x64?type=snapshots"
+#     $chromiumPath = "${env:ProgramFiles}\Chromium"
     
-    $downloadedChromium = $env:USERPROFILE + "\chrome-win.zip"
-    Remove-Item $downloadedChromium -ErrorAction SilentlyContinue
-    aria2c.exe $chromiumUrl -d $HOME -o "chrome-win.zip" --check-certificate=false
+#     $downloadedChromium = $env:USERPROFILE + "\chrome-win.zip"
+#     Remove-Item $downloadedChromium -ErrorAction SilentlyContinue
+#     aria2c.exe $chromiumUrl -d $HOME -o "chrome-win.zip" --check-certificate=false
     
-    & "${env:ProgramFiles}\7-Zip\7z.exe" x $downloadedChromium "-o$($chromiumPath)" -y
+#     & "${env:ProgramFiles}\7-Zip\7z.exe" x $downloadedChromium "-o$($chromiumPath)" -y
     
-    $shortCutPath = $env:USERPROFILE + "\Start Menu\Programs" + "\Chromium.lnk"
-    Remove-Item -Path $shortCutPath -Force -ErrorAction SilentlyContinue
-    $objShell = New-Object -ComObject ("WScript.Shell")
-    $objShortCut = $objShell.CreateShortcut($shortCutPath)
-    $objShortCut.TargetPath = "$chromiumPath\chrome-win\Chrome.exe"
-    $objShortCut.Save()
+#     $shortCutPath = $env:USERPROFILE + "\Start Menu\Programs" + "\Chromium.lnk"
+#     Remove-Item -Path $shortCutPath -Force -ErrorAction SilentlyContinue
+#     $objShell = New-Object -ComObject ("WScript.Shell")
+#     $objShortCut = $objShell.CreateShortcut($shortCutPath)
+#     $objShortCut.TargetPath = "$chromiumPath\chrome-win\Chrome.exe"
+#     $objShortCut.Save()
 
-    Remove-Item -Path $downloadedChromium -Force
-}
+#     Remove-Item -Path $downloadedChromium -Force
+# }
 
-# Android CLI
-if ($true) {
-    Write-Host "Downloading Android-Platform-Tools..." -ForegroundColor Green
-    $toolsPath = "${env:ProgramFiles}\Android-Platform-Tools"
-    $downloadUri = "https://dl.google.com/android/repository/platform-tools-latest-windows.zip"
+# # Android CLI
+# if ($true) {
+#     Write-Host "Downloading Android-Platform-Tools..." -ForegroundColor Green
+#     $toolsPath = "${env:ProgramFiles}\Android-Platform-Tools"
+#     $downloadUri = "https://dl.google.com/android/repository/platform-tools-latest-windows.zip"
     
-    $downloadedTool = $env:USERPROFILE + "\platform-tools-latest-windows.zip"
-    Remove-Item $downloadedTool -ErrorAction SilentlyContinue
-    aria2c.exe $downloadUri -d $HOME -o "platform-tools-latest-windows.zip" --check-certificate=false
+#     $downloadedTool = $env:USERPROFILE + "\platform-tools-latest-windows.zip"
+#     Remove-Item $downloadedTool -ErrorAction SilentlyContinue
+#     aria2c.exe $downloadUri -d $HOME -o "platform-tools-latest-windows.zip" --check-certificate=false
     
-    & ${env:ProgramFiles}\7-Zip\7z.exe x $downloadedTool "-o$($toolsPath)" -y
-    AddToPath -folder "$toolsPath\platform-tools"
-    Remove-Item -Path $downloadedTool -Force
-}
+#     & ${env:ProgramFiles}\7-Zip\7z.exe x $downloadedTool "-o$($toolsPath)" -y
+#     AddToPath -folder "$toolsPath\platform-tools"
+#     Remove-Item -Path $downloadedTool -Force
+# }
 
-# FFmpeg
-if ($true) {
-    Write-Host "Downloading FFmpeg..." -ForegroundColor Green
-    $ffmpegPath = "${env:ProgramFiles}\FFMPEG"
-    $downloadUri = "https://www.gyan.dev/ffmpeg/builds/ffmpeg-git-full.7z"
+# # FFmpeg
+# if ($true) {
+#     Write-Host "Downloading FFmpeg..." -ForegroundColor Green
+#     $ffmpegPath = "${env:ProgramFiles}\FFMPEG"
+#     $downloadUri = "https://www.gyan.dev/ffmpeg/builds/ffmpeg-git-full.7z"
     
-    $downloadedFfmpeg = $env:USERPROFILE + "\ffmpeg-git-full.7z"
-    Remove-Item $downloadedFfmpeg -ErrorAction SilentlyContinue
-    aria2c.exe $downloadUri -d $HOME -o "ffmpeg-git-full.7z" --check-certificate=false
+#     $downloadedFfmpeg = $env:USERPROFILE + "\ffmpeg-git-full.7z"
+#     Remove-Item $downloadedFfmpeg -ErrorAction SilentlyContinue
+#     aria2c.exe $downloadUri -d $HOME -o "ffmpeg-git-full.7z" --check-certificate=false
 
-    & ${env:ProgramFiles}\7-Zip\7z.exe x $downloadedFfmpeg "-o$($ffmpegPath)" -y
-    $subPath = $(Get-ChildItem -Path $ffmpegPath | Where-Object { $_.Name -like "ffmpeg*" } | Sort-Object Name -Descending | Select-Object -First 1).Name
-    $subPath = Join-Path -Path $ffmpegPath -ChildPath $subPath
-    $binPath = Join-Path -Path $subPath -ChildPath "bin"
-    Remove-Item $ffmpegPath\*.exe
-    Move-Item $binPath\*.exe $ffmpegPath
+#     & ${env:ProgramFiles}\7-Zip\7z.exe x $downloadedFfmpeg "-o$($ffmpegPath)" -y
+#     $subPath = $(Get-ChildItem -Path $ffmpegPath | Where-Object { $_.Name -like "ffmpeg*" } | Sort-Object Name -Descending | Select-Object -First 1).Name
+#     $subPath = Join-Path -Path $ffmpegPath -ChildPath $subPath
+#     $binPath = Join-Path -Path $subPath -ChildPath "bin"
+#     Remove-Item $ffmpegPath\*.exe
+#     Move-Item $binPath\*.exe $ffmpegPath
 
-    Write-Host "Adding FFmpeg to PATH..." -ForegroundColor Green
-    AddToPath -folder $ffmpegPath
-    Remove-Item -Path $downloadedFfmpeg -Force
-}
+#     Write-Host "Adding FFmpeg to PATH..." -ForegroundColor Green
+#     AddToPath -folder $ffmpegPath
+#     Remove-Item -Path $downloadedFfmpeg -Force
+# }
 
-# Kubernetes CLI
-if ($true) {
-    Write-Host "Downloading Kubernetes CLI..." -ForegroundColor Green
-    $toolsPath = "${env:ProgramFiles}\Kubernetes"
-    $downloadUri = "https://dl.k8s.io/release/v1.23.0/bin/windows/amd64/kubectl.exe"
+# # Kubernetes CLI
+# if ($true) {
+#     Write-Host "Downloading Kubernetes CLI..." -ForegroundColor Green
+#     $toolsPath = "${env:ProgramFiles}\Kubernetes"
+#     $downloadUri = "https://dl.k8s.io/release/v1.23.0/bin/windows/amd64/kubectl.exe"
     
-    $downloadedTool = $env:USERPROFILE + "\kubectl.exe"
-    Remove-Item $downloadedTool -ErrorAction SilentlyContinue
-    aria2c.exe $downloadUri -d $HOME -o "kubectl.exe" --check-certificate=false
+#     $downloadedTool = $env:USERPROFILE + "\kubectl.exe"
+#     Remove-Item $downloadedTool -ErrorAction SilentlyContinue
+#     aria2c.exe $downloadUri -d $HOME -o "kubectl.exe" --check-certificate=false
     
-    New-Item -Type Directory -Path "${env:ProgramFiles}\Kubernetes" -ErrorAction SilentlyContinue
-    Move-Item $downloadedTool "$toolsPath\kubectl.exe" -Force
-    AddToPath -folder $toolsPath
-}
+#     New-Item -Type Directory -Path "${env:ProgramFiles}\Kubernetes" -ErrorAction SilentlyContinue
+#     Move-Item $downloadedTool "$toolsPath\kubectl.exe" -Force
+#     AddToPath -folder $toolsPath
+# }
 
-# wget
-if ($true) {
-    Write-Host "Downloading Wget..." -ForegroundColor Green
-    $wgetPath = "${env:ProgramFiles}\wget"
-    $downloadUri = "https://eternallybored.org/misc/wget/releases/wget-1.21.3-win64.zip"
-    $downloadedWget = $env:USERPROFILE + "\wget-1.21.3-win64.zip"
-    Remove-Item $downloadedWget -ErrorAction SilentlyContinue
-    aria2c.exe $downloadUri -d $HOME -o "wget-1.21.3-win64.zip" --check-certificate=false
+# # wget
+# if ($true) {
+#     Write-Host "Downloading Wget..." -ForegroundColor Green
+#     $wgetPath = "${env:ProgramFiles}\wget"
+#     $downloadUri = "https://eternallybored.org/misc/wget/releases/wget-1.21.3-win64.zip"
+#     $downloadedWget = $env:USERPROFILE + "\wget-1.21.3-win64.zip"
+#     Remove-Item $downloadedWget -ErrorAction SilentlyContinue
+#     aria2c.exe $downloadUri -d $HOME -o "wget-1.21.3-win64.zip" --check-certificate=false
     
-    & ${env:ProgramFiles}\7-Zip\7z.exe x $downloadedWget "-o$($wgetPath)" -y
-    Write-Host "Adding wget to PATH..." -ForegroundColor Green
-    AddToPath -folder $wgetPath
-    Remove-Item -Path $downloadedWget -Force
-}
+#     & ${env:ProgramFiles}\7-Zip\7z.exe x $downloadedWget "-o$($wgetPath)" -y
+#     Write-Host "Adding wget to PATH..." -ForegroundColor Green
+#     AddToPath -folder $wgetPath
+#     Remove-Item -Path $downloadedWget -Force
+# }
 
-if (-not $(Get-Command git-lfs)) {
-    winget install "GitHub.GitLFS" --source winget
-} else {
-    Write-Host "Git LFS is already installed." -ForegroundColor Yellow
-}
+# if (-not $(Get-Command git-lfs)) {
+#     winget install "GitHub.GitLFS" --source winget
+# } else {
+#     Write-Host "Git LFS is already installed." -ForegroundColor Yellow
+# }
 
 Write-Host "-----------------------------" -ForegroundColor Green
 Write-Host "        PART 3  - Terminal    " -ForegroundColor Green
@@ -406,7 +406,7 @@ explorer "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\OneDrive.lnk"
 explorer "$env:LOCALAPPDATA\Microsoft\OneDrive\OneDrive.exe"
 explorer "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\OneDrive.lnk"
 
-$OneDrivePath = $null
+$OneDrivePath = C:\Users\gxhao
 while ($null -eq $OneDrivePath -or -not $OneDrivePath.Contains("-")) {
     Write-Host "OneDrive is still not started!"
     # Wait till it finds my enterprise OneDrive folder.
@@ -487,38 +487,6 @@ Write-Host "Setting up some node js global tools..." -ForegroundColor Green
 npm install --global npm@latest
 npm install --global node-static typescript @angular/cli yarn npm-check-updates redis-cli
 
-Write-Host "Setting up .NET environment variables..." -ForegroundColor Green
-[Environment]::SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Development", "Machine")
-[Environment]::SetEnvironmentVariable("DOTNET_PRINT_TELEMETRY_MESSAGE", "false", "Machine")
-[Environment]::SetEnvironmentVariable("DOTNET_CLI_TELEMETRY_OPTOUT", "1", "Machine")
-
-if (-not (Test-Path -Path "$env:APPDATA\Nuget\Nuget.config") -or $null -eq (Select-String -Path "$env:APPDATA\Nuget\Nuget.config" -Pattern "nuget.org")) {
-    $config = "<?xml version=`"1.0`" encoding=`"utf-8`"?>`
-    <configuration>`
-      <packageSources>`
-        <add key=`"nuget.org`" value=`"https://api.nuget.org/v3/index.json`" protocolVersion=`"3`" />`
-        <add key=`"Microsoft Visual Studio Offline Packages`" value=`"C:\Program Files (x86)\Microsoft SDKs\NuGetPackages\`" />`
-      </packageSources>`
-      <config>`
-        <add key=`"repositoryPath`" value=`"D:\CxCache`" />`
-      </config>`
-    </configuration>"
-    Set-Content -Path "$env:APPDATA\Nuget\Nuget.config" -Value $config
-} else {
-    Write-Host "Nuget config file already exists." -ForegroundColor Yellow
-}
-New-Item -Path "C:\Program Files (x86)\Microsoft SDKs\NuGetPackages\" -ItemType directory -Force
-
-Write-Host "Installing Github.com/microsoft/artifacts-credprovider..." -ForegroundColor Green
-Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/microsoft/artifacts-credprovider/master/helpers/installcredprovider.ps1'))
-dotnet tool install --global dotnet-ef --interactive
-dotnet tool update --global dotnet-ef --interactive
-
-Write-Host "Building some .NET projects to ensure you can develop..." -ForegroundColor Green
-git clone https://github.com/AiursoftWeb/Infrastructures.git "$HOME\source\repos\AiursoftWeb\Infrastructures"
-git clone https://github.com/AiursoftWeb/AiurVersionControl.git "$HOME\source\repos\AiursoftWeb\AiurVersionControl"
-git clone https://github.com/Anduin2017/Happiness-recorder.git "$HOME\source\repos\Anduin2017\Happiness-recorder"
-dotnet publish "$HOME\source\repos\Anduin2017\Happiness-recorder\JAI.csproj" -c Release -r win-x64 -o "$OneDrivePath\Storage\Tools\JAL" --self-contained
 git clone https://github.com/Anduin2017/Parser.git "$HOME\source\repos\Anduin2017\Parser"
 $parserPath = "$OneDrivePath\Storage\Parser"
 dotnet publish "$HOME\source\repos\Anduin2017\Parser\Parser.csproj" -c Release -r win-x64 -o $parserPath --self-contained
