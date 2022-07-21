@@ -406,13 +406,7 @@ explorer "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\OneDrive.lnk"
 explorer "$env:LOCALAPPDATA\Microsoft\OneDrive\OneDrive.exe"
 explorer "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\OneDrive.lnk"
 
-$OneDrivePath = C:\Users\gxhao
-while ($null -eq $OneDrivePath -or -not $OneDrivePath.Contains("-")) {
-    Write-Host "OneDrive is still not started!"
-    # Wait till it finds my enterprise OneDrive folder.
-    Start-Sleep -Seconds 10
-    $OneDrivePath = $(Get-ChildItem -Path $HOME | Where-Object { $_.Name -like "OneDrive*" } | Sort-Object Name -Descending | Select-Object -First 1).FullName
-}
+$OneDrivePath = C:\Users\gxhao\OneDrive
 Get-ChildItem $OneDrivePath | Format-Table -AutoSize
 
     Write-Host "Setting execution policy to remotesigned..." -ForegroundColor Green
