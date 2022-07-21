@@ -1,6 +1,6 @@
-# My Windows Configuration script
+# Reimage the Windows
 
-These scripts are for my personal usage to configure a ready-to-use Windows environment for me.
+These scripts to configure a ready-to-use Windows environment.
 
 ## Re-install Windows
 
@@ -12,24 +12,30 @@ Right click the start button, click `Windows PowerShell(Admin)`.
 iex ((New-Object System.Net.WebClient).DownloadString('https://github.com/Anduin2017/configuration-script-win/raw/main/Reimage.ps1'))
 ```
 
-It will ask you the downloaded Windows ISO file. You can download it with any tool you like, and provide it the file name.
+![image](https://user-images.githubusercontent.com/19531547/145162782-3e15f780-a1ee-4665-8af8-0d3b85ff103a.png)
 
-It will ask you for a clean disk drive. For example: Disk `E:\`. Provide it with any disk you like. (Except current OS drive)
+* It will ask you the downloaded Windows ISO file. You can download it with any tool you like, and provide it the file name.
+* It will ask you for a clean disk drive. For example: Disk `E:\`. Provide it with any disk you like. (Except current OS drive)
 
+----------------
 
 In China? There is a proxy for China network which bypass the firewall.
 
 ```powershell
 iex ((New-Object System.Net.WebClient).DownloadString('https://githubcontent.aiurs.co/Anduin2017/configuration-script-win/main/Reimage.ps1'))
 ```
+# Warning
 
-## Warning
+This next part may NOT be designed for YOU! It is for my personal usage to config the newly installed Windows as a ready to use state.
 
-This next part may NOT be designed for YOU!
+You need to **fork** this repo, and modify some configuration path in the source code.
 
-Do NOT run it on your computer!!! May ruin your key!
+For example:
 
-## One-key install
+* I copied my SSH private key file from my OneDrive. Which requires you to modify those logic.
+* I copied my Windows Terminal configuration file from my OneDrive. Which requires you to modify those logic.
+
+### One-key post config
 
 Right click the start button, click `Windows PowerShell(Admin)`.
 
@@ -39,21 +45,23 @@ Right click the start button, click `Windows PowerShell(Admin)`.
 iex ((New-Object System.Net.WebClient).DownloadString('https://gitee.com/guo_xiaohao/configuration-script-win/blob/main/install.ps1'))
 ```
 
+<<<<<<< HEAD
 In China? There is a proxy for China network which bypass the firewall.
 
 ```powershell
 iex ((New-Object System.Net.WebClient).DownloadString('https://gitee.com/guo_xiaohao/configuration-script-win/blob/main/install.ps1'))
 ```
 
+=======
+>>>>>>> anduin/main
 **Caution: DO NOT RUN this in Windows Terminal!!! Instead, start a pure PowerShell with admin instead!**
 
 ![image](https://user-images.githubusercontent.com/19531547/127482010-6f8d35f8-37c5-472a-97ae-a75c16aa3699.png)
 
-## How can I use this project?
+### One-key post config for Ubuntu
 
-You need to **fork** this repo, and modify some configuration path in the source code.
+Open bash, and run:
 
-For example:
-
-* I copied my SSH private key file from my OneDrive. Which requires you to modify those logic.
-* I copied my Windows Terminal configuration file from my OneDrive. Which requires you to modify those logic.
+```bash
+sudo apt install -y curl && curl "https://raw.githubusercontent.com/Anduin2017/configuration-script-win/main/ubuntu.sh" --output - | sudo bash
+```

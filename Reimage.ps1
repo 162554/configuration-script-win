@@ -6,12 +6,15 @@ function Get-IsElevated {
     else
     { Write-Output $false }   
 }
+
     
 function Reimage {
     if (-not(Get-IsElevated)) { 
         throw "Please run this script as an administrator" 
     }
 
+    # Get a drive, get the WIM file.
+    $systemDrive = (Get-WmiObject Win32_OperatingSystem).SystemDrive.Trim(':')
     # Get disk
     Write-Host "Please provide me a clean disk amount point. Example: 'Q': " -ForegroundColor Yellow
     $diskMount = $(Read-Host).Trim(':')
@@ -20,14 +23,16 @@ function Reimage {
     if (Test-Path -Path "$($diskMount):\") {
         Write-Host "Disk $diskMount exists!" -ForegroundColor Green
     } else {
-        Write-Host "Disk $diskMount doesn't exist!" -ForegroundColor Red
-        return
+        throw "Disk $diskMount doesn't exist!"
+    }
+
+    if ($systemDrive.ToLower() -eq $diskMount.ToLower()) {
+        throw "You can't install new OS on your existing OS drive: $diskMount!"
     }
 
     # Ensure disk enough size
-    if ((Get-Volume $diskMount).Size -lt 50000000000) {
-        Write-Host "Disk $diskMount too mall! Please assign at least 50GB!" -ForegroundColor Red
-        return
+    if ((Get-Volume $diskMount).Size -lt 20000000000) {
+        throw "Disk $diskMount too mall! Please assign at least 20GB!"
     }
 
     # Format to NTFS.
@@ -37,43 +42,100 @@ function Reimage {
     if ($format -eq "Y") {
         Format-Volume -DriveLetter $diskMount -FileSystem NTFS 
     } else {
-        return
+        throw "You must format that disk first!"
     }
 
     # Disable Bitlocker
     Disable-BitLocker -MountPoint $diskMount
-
-    # iex ((New-Object System.Net.WebClient).DownloadString('https://github.com/pbatard/Fido/raw/master/Fido.ps1'))
     
-    # Enlist ISO options
-    Write-Host "All ISO files here: " -ForegroundColor Yellow
-    Get-ChildItem -Filter "*.iso" | Format-Table -AutoSize
-    Write-Host "Download Windows 10: https://www.microsoft.com/en-US/software-download/windows10" -ForegroundColor DarkBlue
-    Write-Host "Download Windows 11: https://www.microsoft.com/en-us/software-download/windows11" -ForegroundColor DarkBlue
-    Write-Host "Download Windows Insider: https://www.microsoft.com/en-us/software-download/windowsinsiderpreviewiso" -ForegroundColor DarkBlue
+    do {
+        Write-Host "We need the Windows image file. What do you have now?`n" -ForegroundColor Yellow
+        Write-Host -NoNewline "A: " -ForegroundColor White
+        Write-Host "I have nothing. Help me download the new OS."
+        Write-Host -NoNewline "B: " -ForegroundColor White
+        Write-Host "I have nothing. Tell me how to download the new OS. (I will manually download it)"
+        Write-Host -NoNewline "C: " -ForegroundColor White
+        Write-Host "I already have the ISO file downloaded locally."
+        Write-Host -NoNewline "D: " -ForegroundColor White
+        Write-Host "I already have the install.wim file locally.`n"
 
-    Write-Host "Enter the downloaded local ISO file name: " -ForegroundColor Yellow
-    $iso = Read-Host
-    $iso = (Resolve-Path $iso).Path
-    if (Test-Path -Path "$iso") {
-        Get-Item "$iso" | Format-List
-        Write-Host "ISO $iso exists!" -ForegroundColor Green
-    } else {
-        Write-Host "ISO $iso doesn't exist!" -ForegroundColor Red
-        return
+        $userOption = Read-Host -Prompt 'Select'
+        if($userOption.Length -eq 1 -and $userOption.ToLower() -ge "a" -and $userOption.ToLower() -le "d") {
+            break
+        } else {
+            Write-Host "Invalid input!" -ForegroundColor Red
+        }
+    } until($false)
+
+    if ($userOption.ToLower() -eq "a") {
+        Start-Process powershell {
+            Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://githubcontent.aiurs.co/pbatard/Fido/master/Fido.ps1'))
+        }
+
+        Read-Host "Press [Enter] if you finished downloading the ISO file."
+    } 
+    
+    if ($userOption.ToLower() -eq "b") {
+        Write-Host "Please open the following link to download Windows ISO:`n" -ForegroundColor Yellow
+        Write-Host -NoNewline "Download Windows 10: " -ForegroundColor White
+        Write-Host "https://www.microsoft.com/en-US/software-download/windows10" -ForegroundColor DarkBlue
+        Write-Host -NoNewline "Download Windows 11: " -ForegroundColor White
+        Write-Host "https://www.microsoft.com/en-us/software-download/windows11" -ForegroundColor DarkBlue
+        Write-Host -NoNewline "Download Windows Insider: " -ForegroundColor White
+        Write-Host "Download Windows Insider: https://www.microsoft.com/en-us/software-download/windowsinsiderpreviewiso" -ForegroundColor DarkBlue
+        
+        Read-Host "Press [Enter] if you finished downloading the ISO file."
     }
 
-    # Mount ISO
-    $mounted = Mount-DiskImage -ImagePath $iso -Access ReadOnly -StorageType ISO
-    $mountedISO = Get-Volume -DiskImage $mounted
-    Write-Host "Mounted:" -ForegroundColor Green
-    $mountedISO | Format-List
-    $mountedLetter = $mountedISO.DriveLetter
-    Write-Host "Files inside:" -ForegroundColor Green
-    Get-ChildItem "$($mountedLetter):" | Format-Table -AutoSize
+    if ($userOption.ToLower() -eq "a" -or $userOption.ToLower() -eq "b" -or $userOption.ToLower() -eq "c") {
+        # Enlist ISO options
+        Write-Host "All ISO files here ($($(Get-Location))): " -ForegroundColor White
+        Get-ChildItem -Filter "*.iso" | Format-Table -AutoSize
 
-    # Get OS Index
-    dism /Get-ImageInfo /imagefile:"$($mountedLetter):\sources\install.wim"
+        Write-Host "`nPlease provide me the path of your ISO file (ends with .iso):" -ForegroundColor Yellow
+
+        $iso = Read-Host
+        $iso = (Resolve-Path $iso).Path
+        if (Test-Path -Path "$iso") {
+            Get-Item "$iso" | Format-List
+            Write-Host "ISO $iso exists!" -ForegroundColor Green
+        } else {
+            throw "ISO $iso doesn't exist! Please check your path!"
+        }
+
+        # Mount ISO
+        $mounted = Mount-DiskImage -ImagePath $iso -Access ReadOnly -StorageType ISO
+        $mountedISO = Get-Volume -DiskImage $mounted
+        Write-Host "Mounted:" -ForegroundColor Green
+        $mountedISO | Format-List
+        $mountedLetter = $mountedISO.DriveLetter
+        Write-Host "Files inside:" -ForegroundColor Green
+        Get-ChildItem "$($mountedLetter):" | Format-Table -AutoSize
+
+        # Get OS Index
+        $wimFile = "$($mountedLetter):\sources\install.wim"
+    }
+
+    if ($userOption.ToLower() -eq "d") {
+        # Enlist ISO options
+        Write-Host "All WIM files here ($($(Get-Location))): " -ForegroundColor White
+        Get-ChildItem -Filter "*.wim" | Format-Table -AutoSize
+
+        Write-Host "`nPlease provide me the path of your WIM file:" -ForegroundColor Yellow
+
+        $wim = Read-Host
+        $wim = (Resolve-Path $wim).Path
+        if (Test-Path -Path "$wim") {
+            Get-Item "$wim" | Format-List
+            Write-Host "WIM $wim exists!" -ForegroundColor Green
+        } else {
+            throw "WIM $wim doesn't exist!"
+        }
+
+        $wimFile = $wim
+    }
+
+    dism /Get-ImageInfo /imagefile:"$wimFile"
     Write-Host "Please provide the OS Index number. Example: '6': " -ForegroundColor Yellow
     $osIndex = Read-Host
 
@@ -82,11 +144,13 @@ function Reimage {
     $osName = Read-Host
 
     Write-Host "Extracting OS..." -ForegroundColor Green
-    dism /apply-image /imagefile:"$($mountedLetter):\sources\install.wim" /index:"$osIndex" /ApplyDir:"$($diskMount):\"
+    dism /apply-image /imagefile:"$wimFile" /index:"$osIndex" /ApplyDir:"$($diskMount):\"
 
     # Dismount ISO
-    Write-Host "Dismounting the iso..." -ForegroundColor Green
-    Dismount-DiskImage $iso
+    if ($iso) {
+        Write-Host "Dismounting the iso..." -ForegroundColor Green
+        Dismount-DiskImage $iso -ErrorAction SilentlyContinue
+    }
 
     # Create start up registry.
     $created = bcdedit /create /d "$osName" /application osloader
@@ -119,7 +183,6 @@ function Reimage {
     Write-Host "Press Enter to reboot now..." -ForegroundColor Yellow
     Read-Host
     
-    Start-Sleep -Seconds 10
     Restart-Computer -Force
 }
 
