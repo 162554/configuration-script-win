@@ -133,127 +133,6 @@ Write-Host "-----------------------------" -ForegroundColor Green
 if (-not(Get-IsElevated)) { 
     throw "Please run this script as an administrator" 
 }
-<<<<<<< HEAD
-Write-Host "Please make sure you have logged in to Microsoft Accounts and OneDrive."
-Write-Host "Press the [y] key to continue to steps which requires reboot."
-$pressedKey = Read-Host
-Write-Host "You pressed: $($pressedKey)"
-if ($pressedKey -eq 'y') {
-    Write-Host "Please provide me your email." -ForegroundColor Yellow
-    $email = Read-Host
-    Write-Host "Please provide me your name." -ForegroundColor Yellow
-    $name = Read-Host
-    $driveLetter = (Get-Location).Drive.Name
-    $computerName = Read-Host "Enter New Computer Name if you want to rename it: ($($env:COMPUTERNAME))"
-    if (-not ([string]::IsNullOrEmpty($computerName))) {
-        Write-Host "Renaming computer to $computerName..." -ForegroundColor Green
-        cmd /c "bcdedit /set {current} description `"$computerName`""
-        Rename-Computer -NewName $computerName
-    }
-    $screen = (Get-WmiObject -Class Win32_VideoController)
-    $screenX = $screen.CurrentHorizontalResolution
-    $screenY = $screen.CurrentVerticalResolution
-    Write-Host "Got screen: $screenX x $screenY" -ForegroundColor Green
-
-    Write-Host "-----------------------------" -ForegroundColor Green
-    Write-Host "        PART 2  - Install    " -ForegroundColor Green
-    Write-Host "-----------------------------" -ForegroundColor Green
-
-    Do-Next
-
-    Write-Host "Triggering Store to upgrade all apps..." -ForegroundColor Green
-    $namespaceName = "root\cimv2\mdm\dmmap"
-    $className = "MDM_EnterpriseModernAppManagement_AppManagement01"
-    $wmiObj = Get-WmiObject -Namespace $namespaceName -Class $className
-    $wmiObj.UpdateScanMethod() | Format-Table -AutoSize
-
-
-    ## Reimage 
-    # Install Winget
-    if (-not $(Get-Command winget -ErrorAction SilentlyContinue)) {
-        Write-Host "Installing WinGet..." -ForegroundColor Green
-        Start-Process "ms-appinstaller:?source=https://aka.ms/getwinget"
-        while (-not $(Get-Command winget -ErrorAction SilentlyContinue)) {
-            Write-Host "Winget is still not found!" -ForegroundColor Yellow
-            Start-Sleep -Seconds 5
-        }
-    }
-    if ("$(winget list --id Microsoft.VisualStudioCode --source winget)".Contains("--")) { 
-        Write-Host "Microsoft.VisualStudioCode is already installed!" -ForegroundColor Green
-    }
-    else {
-        Write-Host "Attempting to download Microsoft VS Code..." -ForegroundColor Green
-        winget install --exact --id Microsoft.VisualStudioCode --scope Machine --interactive --source winget
-    }
-
-    Install-IfNotInstalled "Microsoft.WindowsTerminal"
-    #Install-IfNotInstalled "Microsoft.Teams"
-    #Install-IfNotInstalled "Microsoft.Office"
-    #Install-IfNotInstalled "Microsoft.OneDrive"
-    #Install-IfNotInstalled "Microsoft.PowerShell"
-    #Install-IfNotInstalled "Microsoft.dotnet"
-    ## Java
-    #Install-IfNotInstalled "JetBrains.IntelliJIDEA.Ultimate"   #bug 无法判断是否已安装
-    Install-IfNotInstalled "EclipseAdoptium.Temurin.11"
-    ## Netease
-    #Install-IfNotInstalled "Netease.CloudMusic"
-    #Install-IfNotInstalled "Microsoft.Edge"
-    Install-IfNotInstalled "Microsoft.EdgeWebView2Runtime"
-    #Install-IfNotInstalled "Microsoft.AzureDataStudio"
-    ## Tencent
-    Install-IfNotInstalled "Tencent.WeChat"
-    Install-IfNotInstalled "Tencent.QQ"
-    Install-IfNotInstalled "SoftDeluxe.FreeDownloadManager"
-    Install-IfNotInstalled "VideoLAN.VLC"
-    Install-IfNotInstalled "OBSProject.OBSStudio"
-    Install-IfNotInstalled "Git.Git"
-    Install-IfNotInstalled "OpenJS.NodeJS"
-    #Install-IfNotInstalled "Postman.Postman"
-    #Install-IfNotInstalled "7zip.7zip"
-    #Install-IfNotInstalled "CPUID.CPU-Z"
-    #Install-IfNotInstalled "WinDirStat.WinDirStat"
-    #Install-IfNotInstalled "FastCopy.FastCopy"
-    #Install-IfNotInstalled "DBBrowserForSQLite.DBBrowserForSQLite"
-    Install-IfNotInstalled "Youdao.YoudaoNote"
-    Install-IfNotInstalled "ZeroTier.ZeroTierOne"
-    Install-IfNotInstalled "Yuanli.uTools"
-    
-
-    Install-StoreApp -storeAppId "9NBLGGH5R558" -wingetAppName "Microsoft To Do"
-
-    #Install-OtherSoftWare "https://res.u-tools.cn/version2/uTools-2.4.3.exe"
-    #Install-OtherSoftWare "https://www.mgnb.jp/download/MGNB.exe"
-    #Install-OtherSoftWare "https://gxhao.download.aiur.site/autodarkmodex_10.1.0.10.exe"
-    #Install-OtherSoftWare "https://download.ydstatic.com/notewebsite/downloads/YNote.exe"
-    #Install-OtherSoftWare "https://download.zerotier.com/dist/ZeroTierOne.msi"
-    <#
-    Write-Host "Configuring FDM..." -ForegroundColor Green
-    cmd /c "taskkill.exe /IM fdm.exe /F"
-    Remove-Item -Path "$env:LOCALAPPDATA\Softdeluxe" -Force -Recurse -ErrorAction SilentlyContinue
-    Start-Process "$env:ProgramFiles\Softdeluxe\Free Download Manager\fdm.exe"
-    Start-Sleep -Seconds 5
-    cmd /c "taskkill.exe /IM fdm.exe /F"
-    $fdmDbPath = "$env:LOCALAPPDATA\Softdeluxe\Free Download Manager\db.sqlite"
-    Invoke-WebRequest -Uri "https://github.com/Anduin2017/configuration-script-win/raw/main/db.sqlite" -OutFile "$fdmDbPath"
-    #>
-
-    if (-not $(Get-Command git-lfs)) {
-        winget install "GitHub.GitLFS" --source winget
-    }
-    else {
-        Write-Host "Git LFS is already installed." -ForegroundColor Yellow
-    }
-    
-    Write-Host "-----------------------------" -ForegroundColor Green
-    Write-Host "        PART 3  - Terminal    " -ForegroundColor Green
-    Write-Host "-----------------------------" -ForegroundColor Green
-
-    Write-Host "Adding Git-Bash to environment variable..." -ForegroundColor Green
-    [Environment]::SetEnvironmentVariable(
-        "Path",
-        [Environment]::GetEnvironmentVariable("Path", [EnvironmentVariableTarget]::Machine) + ";C:\Program Files\Git\bin",
-        [EnvironmentVariableTarget]::Machine)
-=======
 
 Write-Host "OS Info:" -ForegroundColor Green
 Get-CimInstance Win32_OperatingSystem | Format-List Name, Version, InstallDate, OSArchitecture
@@ -549,7 +428,6 @@ while ($null -eq $OneDrivePath -or -not $OneDrivePath.Contains("-")) {
     $OneDrivePath = $(Get-ChildItem -Path $HOME | Where-Object { $_.Name -like "OneDrive*" } | Sort-Object Name -Descending | Select-Object -First 1).FullName
 }
 Get-ChildItem $OneDrivePath | Format-Table -AutoSize
->>>>>>> anduin/main
 
     Write-Host "Setting execution policy to remotesigned..." -ForegroundColor Green
     Set-ExecutionPolicy remotesigned
