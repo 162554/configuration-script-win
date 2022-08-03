@@ -176,17 +176,17 @@ $screenX = $screen.CurrentHorizontalResolution
 $screenY = $screen.CurrentVerticalResolution
 Write-Host "Got screen: $screenX x $screenY" -ForegroundColor Green
 
-# Write-Host "-----------------------------" -ForegroundColor Green
-# Write-Host "        PART 2  - Install    " -ForegroundColor Green
-# Write-Host "-----------------------------" -ForegroundColor Green
+Write-Host "-----------------------------" -ForegroundColor Green
+Write-Host "        PART 2  - Install    " -ForegroundColor Green
+Write-Host "-----------------------------" -ForegroundColor Green
 
-# Do-Next
+Do-Next
 
-# Write-Host "Triggering Store to upgrade all apps..." -ForegroundColor Green
-# $namespaceName = "root\cimv2\mdm\dmmap"
-# $className = "MDM_EnterpriseModernAppManagement_AppManagement01"
-# $wmiObj = Get-WmiObject -Namespace $namespaceName -Class $className
-# $wmiObj.UpdateScanMethod() | Format-Table -AutoSize
+Write-Host "Triggering Store to upgrade all apps..." -ForegroundColor Green
+$namespaceName = "root\cimv2\mdm\dmmap"
+$className = "MDM_EnterpriseModernAppManagement_AppManagement01"
+$wmiObj = Get-WmiObject -Namespace $namespaceName -Class $className
+$wmiObj.UpdateScanMethod() | Format-Table -AutoSize
 
 # if ("$(winget list --id Microsoft.VisualStudioCode --source winget)".Contains("--")) { 
 #     Write-Host "Microsoft.VisualStudioCode is already installed!" -ForegroundColor Green
@@ -196,7 +196,7 @@ Write-Host "Got screen: $screenX x $screenY" -ForegroundColor Green
 #     winget install --exact --id Microsoft.VisualStudioCode --scope Machine --interactive --source winget
 # }
 
-# Install-IfNotInstalled "Microsoft.WindowsTerminal"
+Install-IfNotInstalled "Microsoft.WindowsTerminal"
 # Install-IfNotInstalled "Microsoft.Teams"
 # Install-IfNotInstalled "Microsoft.Office"
 # Install-IfNotInstalled "Microsoft.OneDrive"
@@ -349,41 +349,41 @@ Write-Host "Got screen: $screenX x $screenY" -ForegroundColor Green
 #     Remove-Item -Path $downloadedFfmpeg -Force
 # }
 
-# # Kubernetes CLI
-# if ($true) {
-#     Write-Host "Downloading Kubernetes CLI..." -ForegroundColor Green
-#     $toolsPath = "${env:ProgramFiles}\Kubernetes"
-#     $downloadUri = "https://dl.k8s.io/release/v1.23.0/bin/windows/amd64/kubectl.exe"
+# Kubernetes CLI
+if ($true) {
+    Write-Host "Downloading Kubernetes CLI..." -ForegroundColor Green
+    $toolsPath = "${env:ProgramFiles}\Kubernetes"
+    $downloadUri = "https://dl.k8s.io/release/v1.23.0/bin/windows/amd64/kubectl.exe"
     
-#     $downloadedTool = $env:USERPROFILE + "\kubectl.exe"
-#     Remove-Item $downloadedTool -ErrorAction SilentlyContinue
-#     aria2c.exe $downloadUri -d $HOME -o "kubectl.exe" --check-certificate=false
+    $downloadedTool = $env:USERPROFILE + "\kubectl.exe"
+    Remove-Item $downloadedTool -ErrorAction SilentlyContinue
+    aria2c.exe $downloadUri -d $HOME -o "kubectl.exe" --check-certificate=false
     
-#     New-Item -Type Directory -Path "${env:ProgramFiles}\Kubernetes" -ErrorAction SilentlyContinue
-#     Move-Item $downloadedTool "$toolsPath\kubectl.exe" -Force
-#     AddToPath -folder $toolsPath
-# }
+    New-Item -Type Directory -Path "${env:ProgramFiles}\Kubernetes" -ErrorAction SilentlyContinue
+    Move-Item $downloadedTool "$toolsPath\kubectl.exe" -Force
+    AddToPath -folder $toolsPath
+}
 
-# # wget
-# if ($true) {
-#     Write-Host "Downloading Wget..." -ForegroundColor Green
-#     $wgetPath = "${env:ProgramFiles}\wget"
-#     $downloadUri = "https://eternallybored.org/misc/wget/releases/wget-1.21.3-win64.zip"
-#     $downloadedWget = $env:USERPROFILE + "\wget-1.21.3-win64.zip"
-#     Remove-Item $downloadedWget -ErrorAction SilentlyContinue
-#     aria2c.exe $downloadUri -d $HOME -o "wget-1.21.3-win64.zip" --check-certificate=false
+# wget
+if ($true) {
+    Write-Host "Downloading Wget..." -ForegroundColor Green
+    $wgetPath = "${env:ProgramFiles}\wget"
+    $downloadUri = "https://eternallybored.org/misc/wget/releases/wget-1.21.3-win64.zip"
+    $downloadedWget = $env:USERPROFILE + "\wget-1.21.3-win64.zip"
+    Remove-Item $downloadedWget -ErrorAction SilentlyContinue
+    aria2c.exe $downloadUri -d $HOME -o "wget-1.21.3-win64.zip" --check-certificate=false
     
-#     & ${env:ProgramFiles}\7-Zip\7z.exe x $downloadedWget "-o$($wgetPath)" -y
-#     Write-Host "Adding wget to PATH..." -ForegroundColor Green
-#     AddToPath -folder $wgetPath
-#     Remove-Item -Path $downloadedWget -Force
-# }
+    & ${env:ProgramFiles}\7-Zip\7z.exe x $downloadedWget "-o$($wgetPath)" -y
+    Write-Host "Adding wget to PATH..." -ForegroundColor Green
+    AddToPath -folder $wgetPath
+    Remove-Item -Path $downloadedWget -Force
+}
 
-# if (-not $(Get-Command git-lfs)) {
-#     winget install "GitHub.GitLFS" --source winget
-# } else {
-#     Write-Host "Git LFS is already installed." -ForegroundColor Yellow
-# }
+if (-not $(Get-Command git-lfs)) {
+    winget install "GitHub.GitLFS" --source winget
+} else {
+    Write-Host "Git LFS is already installed." -ForegroundColor Yellow
+}
 
 Write-Host "-----------------------------" -ForegroundColor Green
 Write-Host "        PART 3  - Terminal    " -ForegroundColor Green
@@ -561,10 +561,10 @@ Write-Host "Clearing recycle bin..." -ForegroundColor Green
 Write-Host "Recycle bin cleared on $driveLetter..."
 Clear-RecycleBin -DriveLetter $driveLetter -Force -Confirm
 
-# Disabling Active Probing may increase performance. But on some machines may cause UWP unable to connect to Internet.
-#Write-Host "Disabling rubbish Active Probing..." -ForegroundColor Green
-#Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet\" -Name EnableActiveProbing -Value 0 -Force
-#Write-Host "Disabled Active Probing."
+Disabling Active Probing may increase performance. But on some machines may cause UWP unable to connect to Internet.
+Write-Host "Disabling rubbish Active Probing..." -ForegroundColor Green
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet\" -Name EnableActiveProbing -Value 0 -Force
+Write-Host "Disabled Active Probing."
 
 Write-Host "Clearing start up..." -ForegroundColor Green
 $startUp = $env:USERPROFILE + "\Start Menu\Programs\StartUp\*"
