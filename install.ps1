@@ -188,26 +188,26 @@ $className = "MDM_EnterpriseModernAppManagement_AppManagement01"
 $wmiObj = Get-WmiObject -Namespace $namespaceName -Class $className
 $wmiObj.UpdateScanMethod() | Format-Table -AutoSize
 
-# if ("$(winget list --id Microsoft.VisualStudioCode --source winget)".Contains("--")) { 
-#     Write-Host "Microsoft.VisualStudioCode is already installed!" -ForegroundColor Green
-# }
-# else {
-#     Write-Host "Attempting to download Microsoft VS Code..." -ForegroundColor Green
-#     winget install --exact --id Microsoft.VisualStudioCode --scope Machine --interactive --source winget
-# }
+if ("$(winget list --id Microsoft.VisualStudioCode --source winget)".Contains("--")) { 
+     Write-Host "Microsoft.VisualStudioCode is already installed!" -ForegroundColor Green
+}
+else {
+    Write-Host "Attempting to download Microsoft VS Code..." -ForegroundColor Green
+    winget install --exact --id Microsoft.VisualStudioCode --scope Machine --interactive --source winget
+}
 
 Install-IfNotInstalled "Microsoft.WindowsTerminal"
-# Install-IfNotInstalled "Microsoft.Teams"
-# Install-IfNotInstalled "Microsoft.Office"
-# Install-IfNotInstalled "Microsoft.OneDrive"
-# Install-IfNotInstalled "Microsoft.Edge"
-# Install-IfNotInstalled "Microsoft.EdgeWebView2Runtime"
+Install-IfNotInstalled "Microsoft.Teams"
+Install-IfNotInstalled "Microsoft.Office"
+Install-IfNotInstalled "Microsoft.OneDrive"
+Install-IfNotInstalled "Microsoft.Edge"
+Install-IfNotInstalled "Microsoft.EdgeWebView2Runtime"
 Install-IfNotInstalled "Microsoft.OpenJDK.8"
 Install-IfNotInstalled "Nextcloud.NextcloudDesktop"
 Install-IfNotInstalled "Tencent.WeChat"
 Install-IfNotInstalled "Python.Python.3"
 Install-IfNotInstalled "GoLang.Go"
-# Install-IfNotInstalled "SoftDeluxe.FreeDownloadManager"
+Install-IfNotInstalled "SoftDeluxe.FreeDownloadManager"
 Install-IfNotInstalled "VideoLAN.VLC"
 Install-IfNotInstalled "Telegram.TelegramDesktop"
 Install-IfNotInstalled "OBSProject.OBSStudio"
@@ -218,17 +218,17 @@ Install-IfNotInstalled "Postman.Postman"
 Install-IfNotInstalled "7zip.7zip"
 Install-IfNotInstalled "CPUID.CPU-Z"
 Install-IfNotInstalled "WinDirStat.WinDirStat"
-# Install-IfNotInstalled "FastCopy.FastCopy"
-# Install-IfNotInstalled "DBBrowserForSQLite.DBBrowserForSQLite"
-# Install-IfNotInstalled "CrystalDewWorld.CrystalDiskInfo"
+Install-IfNotInstalled "FastCopy.FastCopy"
+Install-IfNotInstalled "DBBrowserForSQLite.DBBrowserForSQLite"
+Install-IfNotInstalled "CrystalDewWorld.CrystalDiskInfo"
 
-# Install-StoreApp -storeAppId "9N0DX20HK701" -wingetAppName "Windows Terminal"
-# Install-StoreApp -storeAppId "9nblggh4qghw" -wingetAppName "Microsoft Sticky Notes"
+Install-StoreApp -storeAppId "9N0DX20HK701" -wingetAppName "Windows Terminal"
+Install-StoreApp -storeAppId "9nblggh4qghw" -wingetAppName "Microsoft Sticky Notes"
 Install-StoreApp -storeAppId "9wzdncrfhvqm" -wingetAppName "Mail and Calendar"
 Install-StoreApp -storeAppId "9mspc6mp8fm4" -wingetAppName "Microsoft Whiteboard"
-# Install-StoreApp -storeAppId "9wzdncrfhvjl" -wingetAppName "OneNote for Windows 10"
-# Install-StoreApp -storeAppId "9N4D0MSMP0PT" -wingetAppName "VP9 Video Extensions"
-# Install-StoreApp -storeAppId "9N4D0MSMP0PT" -wingetAppName "AV1 Video Extension"
+Install-StoreApp -storeAppId "9wzdncrfhvjl" -wingetAppName "OneNote for Windows 10"
+Install-StoreApp -storeAppId "9N4D0MSMP0PT" -wingetAppName "VP9 Video Extensions"
+Install-StoreApp -storeAppId "9N4D0MSMP0PT" -wingetAppName "AV1 Video Extension"
 
 RemoveUWP Microsoft.MSPaint
 RemoveUWP Microsoft.Microsoft3DViewer
