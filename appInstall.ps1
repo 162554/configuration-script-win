@@ -84,10 +84,10 @@ if (-not $(Get-Command winget -ErrorAction SilentlyContinue)) {
 }
 
 Write-Host "Triggering Store to upgrade all apps..." -ForegroundColor Green
-$namespaceName = "root\cimv2\mdm\dmmap"
-$className = "MDM_EnterpriseModernAppManagement_AppManagement01"
-$wmiObj = Get-WmiObject -Namespace $namespaceName -Class $className
-$wmiObj.UpdateScanMethod() | Format-Table -AutoSize
+# $namespaceName = "root\cimv2\mdm\dmmap"
+# $className = "MDM_EnterpriseModernAppManagement_AppManagement01"
+# $wmiObj = Get-WmiObject -Namespace $namespaceName -Class $className
+# $wmiObj.UpdateScanMethod() | Format-Table -AutoSize
 
 if ("$(winget list --id Microsoft.VisualStudioCode --source winget)".Contains("--")) { 
      Write-Host "Microsoft.VisualStudioCode is already installed!" -ForegroundColor Green
@@ -129,4 +129,9 @@ Install-StoreApp -storeAppId "9N4D0MSMP0PT" -wingetAppName "AV1 Video Extension"
 
 RemoveUWP Microsoft.MSPaint
 RemoveUWP Microsoft.Microsoft3DViewer
+
+
+Write-Host "Cleaning desktop..." -ForegroundColor Green
+Remove-Item $HOME\Desktop\* -Force -Recurse -Confirm:$false -ErrorAction SilentlyContinue
+Remove-Item "C:\Users\Public\Desktop\*" -Force -Recurse -Confirm:$false -ErrorAction SilentlyContinue
 
