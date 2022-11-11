@@ -6,7 +6,7 @@ Write-Host "-----------------------------" -ForegroundColor Green
 
 $email = Read-Host -Prompt 'Input your email'
 $name = Read-Host -Prompt 'Input your name'
-$iCloudPath = Read-Host -Prompt 'Input your iCloudPath'
+$iCloudPath = "$HOME\iCloudDrive\"
 
 function AddToPath {
     param (
