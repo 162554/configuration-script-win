@@ -6,7 +6,9 @@ Write-Host "-----------------------------" -ForegroundColor Green
 
 $email = Read-Host -Prompt 'Input your email'
 $name = Read-Host -Prompt 'Input your name'
-$iCloudPath = "$HOME\iCloudDrive\"
+$CloudName = Read-Host -Prompt 'Input your CloudName'
+
+$CloudPath = "$HOME"+"\"+"$CloudName"
 
 function AddToPath {
     param (
@@ -32,7 +34,7 @@ AddToPath -folder "C:\Program Files\VideoLAN\VLC"
 
 
 
-Get-ChildItem $iCloudPath | Format-Table -AutoSize
+Get-ChildItem $CloudPath | Format-Table -AutoSize
 
     Write-Host "Setting execution policy to remotesigned..." -ForegroundColor Green
     Set-ExecutionPolicy remotesigned
@@ -42,7 +44,7 @@ New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" -Name
 
 
 Write-Host "Linking back SSH keys..." -ForegroundColor Green
-$iCloudDriveSshConfigPath = "$iCloudPath\Storage\SSH\"
+$iCloudDriveSshConfigPath = "$CloudPath\Storage\SSH\"
 $localSshConfigPath = "$HOME\.ssh\"
 $_ = Get-Content $iCloudDriveSshConfigPath\id_rsa.pub # Ensure file is available.
 cmd /c "rmdir $localSshConfigPath /q"
@@ -60,8 +62,8 @@ git config --global core.longpaths true
 
 Write-Host "Linking back windows terminal configuration file..." -ForegroundColor Green
 $wtConfigPath = "$HOME\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
-$onedriveConfigwt = "$iCloudPath\Storage\WT\settings.json"
-$_ = Get-Content $onedriveConfigwt # Ensure file is available.
+$CloudConfigwt = "$CloudPath\Storage\WT\settings.json"
+$_ = Get-Content $CloudConfigwt # Ensure file is available.
 cmd /c "del `"$wtConfigPath`""
 cmd /c "mklink `"$wtConfigPath`" `"$onedriveConfigwt`""
 
@@ -99,7 +101,7 @@ npm install --global npm@latest
 npm install --global node-static typescript @angular/cli yarn npm-check-updates redis-cli
 
 git clone https://github.com/Anduin2017/Parser.git "$HOME\source\repos\Anduin2017\Parser"
-$parserPath = "$OneDrivePath\Storage\Parser"
+$parserPath = "$CloudPath\Storage\Parser"
 dotnet publish "$HOME\source\repos\Anduin2017\Parser\Parser.csproj" -c Release -r win-x64 -o $parserPath --self-contained
 AddToPath -folder $parserPath
 
