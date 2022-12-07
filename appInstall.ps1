@@ -116,6 +116,12 @@ Install-IfNotInstalled "FastCopy.FastCopy"
 Install-IfNotInstalled "DBBrowserForSQLite.DBBrowserForSQLite"
 Install-IfNotInstalled "CrystalDewWorld.CrystalDiskInfo"
 Install-IfNotInstalled "iCloud"
+Install-IfNotInstalled "Google.Chrome"
+Install-IfNotInstalled "JetBrains.IntelliJIDEA.Ultimate"
+Install-IfNotInstalled "Notion.Notion"
+Install-IfNotInstalled "TortoiseSVN.TortoiseSVN"
+Install-IfNotInstalled "Nextcloud.NextcloudDesktop"
+Install-IfNotInstalled "OpenVPNTechnologies.OpenVPN"
 
 Install-StoreApp -storeAppId "9N0DX20HK701" -wingetAppName "Windows Terminal"
 Install-StoreApp -storeAppId "9nblggh4qghw" -wingetAppName "Microsoft Sticky Notes"
@@ -124,6 +130,7 @@ Install-StoreApp -storeAppId "9mspc6mp8fm4" -wingetAppName "Microsoft Whiteboard
 Install-StoreApp -storeAppId "9wzdncrfhvjl" -wingetAppName "OneNote for Windows 10"
 Install-StoreApp -storeAppId "9N4D0MSMP0PT" -wingetAppName "VP9 Video Extensions"
 Install-StoreApp -storeAppId "9N4D0MSMP0PT" -wingetAppName "AV1 Video Extension"
+Install-StoreApp -storeAppId "9NM8N7DQ3Z5F" -wingetAppName "WinDynamicDesktop"
 
 # icloud 
 
