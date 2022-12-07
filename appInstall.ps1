@@ -115,7 +115,6 @@ Install-IfNotInstalled "WinDirStat.WinDirStat"
 Install-IfNotInstalled "FastCopy.FastCopy"
 Install-IfNotInstalled "DBBrowserForSQLite.DBBrowserForSQLite"
 Install-IfNotInstalled "CrystalDewWorld.CrystalDiskInfo"
-Install-IfNotInstalled "iCloud"
 Install-IfNotInstalled "Google.Chrome"
 Install-IfNotInstalled "JetBrains.IntelliJIDEA.Ultimate"
 Install-IfNotInstalled "Notion.Notion"
@@ -131,6 +130,7 @@ Install-StoreApp -storeAppId "9wzdncrfhvjl" -wingetAppName "OneNote for Windows 
 Install-StoreApp -storeAppId "9N4D0MSMP0PT" -wingetAppName "VP9 Video Extensions"
 Install-StoreApp -storeAppId "9N4D0MSMP0PT" -wingetAppName "AV1 Video Extension"
 Install-StoreApp -storeAppId "9NM8N7DQ3Z5F" -wingetAppName "WinDynamicDesktop"
+Install-StoreApp -storeAppId "9PKTQ5699M62" -wingetAppName "iCloud"
 
 # icloud 
 
