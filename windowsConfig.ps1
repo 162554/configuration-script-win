@@ -76,8 +76,11 @@ pwsh -command "$HOME\temp\install.ps1 mini"
 Remove-Item $HOME\temp -Force -Recurse -Confirm:$false
 
 # =====================config maven
+AddToPath -folder "$HOME\Nextcloud\Storage\env\maven\bin"
 
 # =====================config svn 
+
+AddToPath -folder "$HOME\Nextcloud\Storage\TortoiseSVN\bin"
 
 # =====================config java
 
