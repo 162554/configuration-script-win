@@ -121,8 +121,8 @@ AddToPath -folder $parserPath
     Write-Host "Monitor timeout set to 20."
 
     Write-Host "Enabling Chinese input method..." -ForegroundColor Green
-    $UserLanguageList = New-WinUserLanguageList -Language en-US
-    $UserLanguageList.Add("zh-CN")
+    $UserLanguageList = New-WinUserLanguageList -Language zh-CN   
+    #$UserLanguageList.Add("en-US")
     Set-WinUserLanguageList $UserLanguageList -Force
     $UserLanguageList | Format-Table -AutoSize
 

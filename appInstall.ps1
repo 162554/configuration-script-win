@@ -97,7 +97,7 @@ else {
     winget install --exact --id Microsoft.VisualStudioCode --scope Machine --interactive --source winget
 }
 
-Install-IfNotInstalled "Microsoft.OpenJDK.8"
+Install-IfNotInstalled "EclipseAdoptium.Temurin.8.JRE"
 Install-IfNotInstalled "Tencent.WeChat"
 Install-IfNotInstalled "Python.Python.3"
 Install-IfNotInstalled "GoLang.Go"
