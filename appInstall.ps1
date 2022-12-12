@@ -130,6 +130,7 @@ Install-IfNotInstalled "Tencent.TIM"
 Install-IfNotInstalled "CrystalDiskMark8_is1"
 Install-IfNotInstalled "Microsoft.PowerShell"
 Install-IfNotInstalled "notepad++"
+Install-IfNotInstalled "dbeaver.dbeaver"
 
 
 #Install-StoreApp -storeAppId "9N0DX20HK701" -wingetAppName "Windows Terminal"

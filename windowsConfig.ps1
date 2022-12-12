@@ -77,7 +77,9 @@ Remove-Item $HOME\temp -Force -Recurse -Confirm:$false
 
 # =====================config maven
 
-# =====================config  svn 
+# =====================config svn 
+
+# =====================config java
 
 
 Write-Host "Configuring bash profile and bash rc..." -ForegroundColor Green
